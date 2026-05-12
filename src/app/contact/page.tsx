@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Mail,
   Phone,
@@ -13,9 +14,21 @@ import {
   ExternalLink,
   Clock,
   CheckCircle,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { siteConfig, faqItems } from "@/data/site";
+
+// ─── EmailJS config ───────────────────────────────────────────────
+// 1. Sign up free at https://www.emailjs.com
+// 2. Add an Email Service (Gmail) → copy Service ID below
+// 3. Create an Email Template → copy Template ID below
+// 4. Go to Account → API Keys → copy Public Key below
+// Template variables used: {{from_name}}, {{from_email}}, {{phone}}, {{subject}}, {{message}}
+const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";   // e.g. "service_xxxxxxx"
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";  // e.g. "template_xxxxxxx"
+const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";   // e.g. "xxxxxxxxxxxxxxxxxxxxxx"
 
 function AnimatedSection({
   children,
@@ -76,6 +89,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 }
 
 export default function ContactPage() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -83,13 +97,28 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    if (!formRef.current) return;
+
+    setStatus("sending");
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      );
+      setStatus("success");
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setTimeout(() => setStatus("idle"), 6000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 6000);
+    }
   };
 
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
@@ -201,7 +230,8 @@ export default function ContactPage() {
                   Fill in the form and we&apos;ll get back to you within 24 hours.
                 </p>
 
-                {submitted && (
+                {/* Success banner */}
+                {status === "success" && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -213,13 +243,33 @@ export default function ContactPage() {
                   >
                     <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                     <p className="text-emerald-300 text-sm font-medium">
-                      Message sent! We&apos;ll reply to {formData.email || "your email"} within 24
-                      hours.
+                      Message sent successfully! We&apos;ll reply to your email within 24 hours.
                     </p>
                   </motion.div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Error banner */}
+                {status === "error" && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mb-6 p-4 rounded-xl flex items-center gap-3"
+                    style={{
+                      background: "rgba(239, 68, 68, 0.12)",
+                      border: "1px solid rgba(239, 68, 68, 0.35)",
+                    }}
+                  >
+                    <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                    <p className="text-red-300 text-sm font-medium">
+                      Failed to send. Please email us directly at{" "}
+                      <a href={`mailto:${siteConfig.email}`} className="underline">
+                        {siteConfig.email}
+                      </a>
+                    </p>
+                  </motion.div>
+                )}
+
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -227,23 +277,15 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="text"
+                        name="from_name"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your full name"
                         className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                        style={{
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                        }}
-                        onFocus={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(99, 102, 241, 0.5)";
-                          (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)";
-                        }}
-                        onBlur={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)";
-                          (e.target as HTMLElement).style.boxShadow = "none";
-                        }}
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                        onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(99,102,241,0.5)"; (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"; }}
+                        onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; (e.target as HTMLElement).style.boxShadow = "none"; }}
                       />
                     </div>
                     <div>
@@ -252,23 +294,15 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="email"
+                        name="from_email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="your@email.com"
                         className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                        style={{
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                        }}
-                        onFocus={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(99, 102, 241, 0.5)";
-                          (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)";
-                        }}
-                        onBlur={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)";
-                          (e.target as HTMLElement).style.boxShadow = "none";
-                        }}
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                        onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(99,102,241,0.5)"; (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"; }}
+                        onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; (e.target as HTMLElement).style.boxShadow = "none"; }}
                       />
                     </div>
                   </div>
@@ -278,20 +312,14 @@ export default function ContactPage() {
                       <label className="block text-sm font-medium text-gray-300 mb-2">Phone</label>
                       <input
                         type="tel"
+                        name="phone"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 00000 00000"
                         className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                        style={{
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                        }}
-                        onFocus={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(99, 102, 241, 0.5)";
-                        }}
-                        onBlur={(e) => {
-                          (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)";
-                        }}
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                        onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(99,102,241,0.5)"; }}
+                        onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; }}
                       />
                     </div>
                     <div>
@@ -299,23 +327,21 @@ export default function ContactPage() {
                         Subject *
                       </label>
                       <select
+                        name="subject"
                         required
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl text-white outline-none transition-all text-sm"
-                        style={{
-                          background: "rgba(30,30,50,0.9)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                        }}
+                        style={{ background: "rgba(30,30,50,0.9)", border: "1px solid rgba(255,255,255,0.1)" }}
                       >
                         <option value="" style={{ background: "#0d0d1a" }}>Select a subject</option>
-                        <option value="web-dev" style={{ background: "#0d0d1a" }}>Website Development</option>
-                        <option value="ecommerce" style={{ background: "#0d0d1a" }}>E-Commerce</option>
-                        <option value="software" style={{ background: "#0d0d1a" }}>Custom Software</option>
-                        <option value="scholarship" style={{ background: "#0d0d1a" }}>Scholarship Support</option>
-                        <option value="placement" style={{ background: "#0d0d1a" }}>Placement Guidance</option>
-                        <option value="consultation" style={{ background: "#0d0d1a" }}>Consultation</option>
-                        <option value="other" style={{ background: "#0d0d1a" }}>Other</option>
+                        <option value="Website Development" style={{ background: "#0d0d1a" }}>Website Development</option>
+                        <option value="E-Commerce" style={{ background: "#0d0d1a" }}>E-Commerce</option>
+                        <option value="Custom Software" style={{ background: "#0d0d1a" }}>Custom Software</option>
+                        <option value="Scholarship Support" style={{ background: "#0d0d1a" }}>Scholarship Support</option>
+                        <option value="Placement Guidance" style={{ background: "#0d0d1a" }}>Placement Guidance</option>
+                        <option value="Consultation" style={{ background: "#0d0d1a" }}>Consultation</option>
+                        <option value="Other" style={{ background: "#0d0d1a" }}>Other</option>
                       </select>
                     </div>
                   </div>
@@ -325,28 +351,33 @@ export default function ContactPage() {
                       Message *
                     </label>
                     <textarea
+                      name="message"
                       required
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Tell us about your project, requirement, or query..."
                       className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm resize-none"
-                      style={{
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                      }}
-                      onFocus={(e) => {
-                        (e.target as HTMLElement).style.borderColor = "rgba(99, 102, 241, 0.5)";
-                        (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)";
-                      }}
-                      onBlur={(e) => {
-                        (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)";
-                        (e.target as HTMLElement).style.boxShadow = "none";
-                      }}
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                      onFocus={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(99,102,241,0.5)"; (e.target as HTMLElement).style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"; }}
+                      onBlur={(e) => { (e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; (e.target as HTMLElement).style.boxShadow = "none"; }}
                     />
                   </div>
-                  <button type="submit" className="btn-primary w-full justify-center py-4 text-base">
-                    <Send className="w-4 h-4" /> Send Message
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="btn-primary w-full justify-center py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === "sending" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" /> Send Message
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
