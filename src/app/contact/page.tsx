@@ -26,9 +26,9 @@ import { siteConfig, faqItems } from "@/data/site";
 // 3. Create an Email Template → copy Template ID below
 // 4. Go to Account → API Keys → copy Public Key below
 // Template variables used: {{from_name}}, {{from_email}}, {{phone}}, {{subject}}, {{message}}
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";   // e.g. "service_xxxxxxx"
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";  // e.g. "template_xxxxxxx"
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";   // e.g. "xxxxxxxxxxxxxxxxxxxxxx"
+const EMAILJS_SERVICE_ID  = "service_g78mvsp";
+const EMAILJS_TEMPLATE_ID = "template_un3plzl";
+const EMAILJS_PUBLIC_KEY  = "l2jiML-0CbpS0yyJ0";
 
 function AnimatedSection({
   children,
