@@ -2,7 +2,6 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
 import {
   Mail,
   Phone,
@@ -14,21 +13,10 @@ import {
   ExternalLink,
   Clock,
   CheckCircle,
-  AlertCircle,
   Loader2,
 } from "lucide-react";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import { siteConfig, faqItems } from "@/data/site";
-
-// ─── EmailJS config ───────────────────────────────────────────────
-// 1. Sign up free at https://www.emailjs.com
-// 2. Add an Email Service (Gmail) → copy Service ID below
-// 3. Create an Email Template → copy Template ID below
-// 4. Go to Account → API Keys → copy Public Key below
-// Template variables used: {{from_name}}, {{from_email}}, {{phone}}, {{subject}}, {{message}}
-const EMAILJS_SERVICE_ID  = "service_g78mvsp";
-const EMAILJS_TEMPLATE_ID = "template_un3plzl";
-const EMAILJS_PUBLIC_KEY  = "l2jiML-0CbpS0yyJ0";
 
 function AnimatedSection({
   children,
@@ -97,28 +85,27 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formRef.current) return;
 
     setStatus("sending");
 
-    try {
-      await emailjs.sendForm(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        EMAILJS_PUBLIC_KEY
-      );
-      setStatus("success");
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-      setTimeout(() => setStatus("idle"), 6000);
-    } catch {
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 6000);
-    }
+    const text =
+      `*New Contact Form Submission*%0A%0A` +
+      `*Name:* ${encodeURIComponent(formData.name)}%0A` +
+      `*Email:* ${encodeURIComponent(formData.email)}%0A` +
+      `*Phone:* ${encodeURIComponent(formData.phone || "Not provided")}%0A` +
+      `*Subject:* ${encodeURIComponent(formData.subject)}%0A%0A` +
+      `*Message:*%0A${encodeURIComponent(formData.message)}`;
+
+    // Open WhatsApp silently in a new tab with all form data
+    window.open(`https://wa.me/916382256881?text=${text}`, "_blank");
+
+    setStatus("success");
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setTimeout(() => setStatus("idle"), 6000);
   };
 
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
@@ -248,26 +235,6 @@ export default function ContactPage() {
                   </motion.div>
                 )}
 
-                {/* Error banner */}
-                {status === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="mb-6 p-4 rounded-xl flex items-center gap-3"
-                    style={{
-                      background: "rgba(239, 68, 68, 0.12)",
-                      border: "1px solid rgba(239, 68, 68, 0.35)",
-                    }}
-                  >
-                    <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-                    <p className="text-red-300 text-sm font-medium">
-                      Failed to send. Please email us directly at{" "}
-                      <a href={`mailto:${siteConfig.email}`} className="underline">
-                        {siteConfig.email}
-                      </a>
-                    </p>
-                  </motion.div>
-                )}
 
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
