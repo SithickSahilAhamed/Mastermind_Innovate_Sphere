@@ -142,7 +142,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.55 }}
-              className="mt-12 flex flex-wrap gap-2 justify-center"
+              className="mt-12 hidden sm:flex flex-wrap gap-2 justify-center"
             >
               {["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "E-Commerce", "UI/UX"].map((tech, i) => (
                 <motion.span
