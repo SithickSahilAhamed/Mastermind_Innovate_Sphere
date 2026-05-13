@@ -3,18 +3,16 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Target,
-  Eye,
-  Heart,
-  Lightbulb,
-  Users,
-  Award,
-  Globe,
-  CheckCircle,
-  Zap,
-} from "lucide-react";
+import ArrowForward from "@mui/icons-material/ArrowForward";
+import TrackChanges from "@mui/icons-material/TrackChanges";
+import Visibility from "@mui/icons-material/Visibility";
+import Favorite from "@mui/icons-material/Favorite";
+import Lightbulb from "@mui/icons-material/Lightbulb";
+import Group from "@mui/icons-material/Group";
+import EmojiEvents from "@mui/icons-material/EmojiEvents";
+import Language from "@mui/icons-material/Language";
+import CheckCircle from "@mui/icons-material/CheckCircle";
+import FlashOn from "@mui/icons-material/FlashOn";
 import { stats, teamMembers } from "@/data/site";
 
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -42,9 +40,9 @@ const timeline = [
 ];
 
 const values = [
-  { icon: Target, title: "Mission-Driven", desc: "Every project we take is aimed at creating real, measurable impact for our clients and community.", color: "from-indigo-500 to-purple-500" },
-  { icon: Eye, title: "Visionary Thinking", desc: "We look ahead — designing solutions that scale with your business and stand the test of time.", color: "from-blue-500 to-cyan-500" },
-  { icon: Heart, title: "Community First", desc: "Beyond business, we invest in students and communities through scholarships and consultation support.", color: "from-pink-500 to-rose-500" },
+  { icon: TrackChanges, title: "Mission-Driven", desc: "Every project we take is aimed at creating real, measurable impact for our clients and community.", color: "from-indigo-500 to-purple-500" },
+  { icon: Visibility, title: "Visionary Thinking", desc: "We look ahead — designing solutions that scale with your business and stand the test of time.", color: "from-blue-500 to-cyan-500" },
+  { icon: Favorite, title: "Community First", desc: "Beyond business, we invest in students and communities through scholarships and consultation support.", color: "from-pink-500 to-rose-500" },
   { icon: Lightbulb, title: "Innovation Always", desc: "We stay at the cutting edge of technology, constantly learning and applying new approaches.", color: "from-amber-500 to-orange-500" },
 ];
 
@@ -61,25 +59,19 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 bg-mesh bg-grid" />
-        <div className="absolute top-1/3 left-1/4 w-72 h-72 rounded-full opacity-20 blur-[80px]" style={{ background: "radial-gradient(circle, #6366f1, transparent)" }} />
+      <section className="section-padding relative overflow-hidden bg-hero-gradient">
+        <div className="absolute inset-0 bg-grid" />
+        <div className="absolute top-1/3 left-1/4 w-72 h-72 rounded-full opacity-20 blur-[80px]" style={{ background: "radial-gradient(circle, #c7d2fe, transparent)" }} />
         <div className="container-max relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-6" style={{ background: "rgba(99, 102, 241, 0.15)", border: "1px solid rgba(99, 102, 241, 0.3)", color: "#a5b4fc" }}>
-              <Users className="w-3 h-3" /> Our Story
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-6" style={{ background: "#eef1fd", border: "1px solid #c5cee0", color: "#3b5bdb" }}>
+              <Group sx={{ fontSize: 14 }} /> Our Story
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: "#0d1321" }}>
               We&apos;re More Than a{" "}
-              <span style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Tech Company
-              </span>
+              <span className="gradient-text">Tech Company</span>
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "#4a5568" }}>
               We are a team of passionate developers, designers, and mentors committed to building modern digital solutions while uplifting communities through education and guidance.
             </p>
           </motion.div>
@@ -87,13 +79,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12" style={{ background: "rgba(99, 102, 241, 0.05)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <section className="py-12" style={{ background: "#f8f9fc", borderTop: "1px solid #e4e8f0", borderBottom: "1px solid #e4e8f0" }}>
         <div className="container-max px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <AnimatedSection key={stat.label} delay={i * 0.1} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold mb-1" style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{stat.value}</div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl font-bold mb-1 gradient-text">{stat.value}</div>
+                <div className="text-sm" style={{ color: "#4a5568" }}>{stat.label}</div>
               </AnimatedSection>
             ))}
           </div>
@@ -105,16 +97,16 @@ export default function AboutPage() {
         <div className="container-max">
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { icon: Target, label: "Our Mission", text: "To empower businesses with cutting-edge digital solutions and support students in their educational journey by providing technology, mentorship, and guidance — all under one purpose-driven organization.", color: "from-indigo-500 to-purple-500" },
-              { icon: Eye, label: "Our Vision", text: "To be a leading digital transformation partner across South Asia, recognized not just for technical excellence but for our lasting social impact on student communities and public welfare.", color: "from-blue-500 to-cyan-500" },
+              { icon: TrackChanges, label: "Our Mission", text: "To empower businesses with cutting-edge digital solutions and support students in their educational journey by providing technology, mentorship, and guidance — all under one purpose-driven organization.", color: "from-indigo-500 to-purple-500" },
+              { icon: Visibility, label: "Our Vision", text: "To be a leading digital transformation partner across South Asia, recognized not just for technical excellence but for our lasting social impact on student communities and public welfare.", color: "from-blue-500 to-cyan-500" },
             ].map((item, i) => (
               <AnimatedSection key={item.label} delay={i * 0.15}>
-                <div className="p-8 rounded-2xl h-full" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="glass-card p-8 rounded-2xl h-full">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br ${item.color}`}>
-                    <item.icon className="w-7 h-7 text-white" />
+                    <item.icon sx={{ fontSize: 28, color: "white" }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{item.label}</h3>
-                  <p className="text-gray-400 leading-relaxed">{item.text}</p>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: "#0d1321" }}>{item.label}</h3>
+                  <p className="leading-relaxed" style={{ color: "#4a5568" }}>{item.text}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -123,23 +115,22 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="section-padding" style={{ background: "rgba(0,0,0,0.3)" }}>
+      <section className="section-padding bg-section">
         <div className="container-max">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              The Values We{" "}
-              <span style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Live By</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "#0d1321" }}>
+              The Values We <span className="gradient-text">Live By</span>
             </h2>
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
               <AnimatedSection key={v.title} delay={i * 0.1}>
-                <div className="p-6 rounded-2xl text-center h-full" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="glass-card p-6 rounded-2xl text-center h-full">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-gradient-to-br ${v.color}`}>
-                    <v.icon className="w-7 h-7 text-white" />
+                    <v.icon sx={{ fontSize: 28, color: "white" }} />
                   </div>
-                  <h3 className="text-white font-semibold text-lg mb-3">{v.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
+                  <h3 className="font-semibold text-lg mb-3" style={{ color: "#0d1321" }}>{v.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "#4a5568" }}>{v.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -151,24 +142,22 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="container-max">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Our{" "}
-              <span style={{ background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Journey</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "#0d1321" }}>
+              Our <span className="gradient-text">Journey</span>
             </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">From a small team with a big dream to a growing digital agency with real social impact.</p>
+            <p className="max-w-lg mx-auto" style={{ color: "#4a5568" }}>From a small team with a big dream to a growing digital agency with real social impact.</p>
           </AnimatedSection>
-
           <div className="relative max-w-2xl mx-auto">
-            <div className="absolute left-8 top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #6366f1, #8b5cf6, #06b6d4)" }} />
+            <div className="absolute left-8 top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #3b5bdb, #7048e8, #0ea5e9)" }} />
             {timeline.map((item, i) => (
               <AnimatedSection key={item.year} delay={i * 0.12} className="relative flex gap-8 mb-10">
                 <div className="w-16 flex-shrink-0 flex items-start justify-center pt-1">
-                  <div className="w-4 h-4 rounded-full border-2 border-indigo-500 bg-[#030712] relative z-10" style={{ boxShadow: "0 0 10px rgba(99, 102, 241, 0.6)" }} />
+                  <div className="w-4 h-4 rounded-full border-2 border-indigo-500 bg-white relative z-10" style={{ boxShadow: "0 0 10px rgba(59,91,219,0.4)" }} />
                 </div>
                 <div className="pb-2">
-                  <span className="text-indigo-400 text-sm font-medium">{item.year}</span>
-                  <h3 className="text-white font-semibold text-lg mt-1">{item.title}</h3>
-                  <p className="text-gray-400 text-sm mt-1">{item.desc}</p>
+                  <span className="text-sm font-medium" style={{ color: "#3b5bdb" }}>{item.year}</span>
+                  <h3 className="font-semibold text-lg mt-1" style={{ color: "#0d1321" }}>{item.title}</h3>
+                  <p className="text-sm mt-1" style={{ color: "#4a5568" }}>{item.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -177,27 +166,26 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="section-padding" style={{ background: "rgba(0,0,0,0.3)" }}>
+      <section className="section-padding bg-section">
         <div className="container-max">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Meet Our{" "}
-              <span style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Team</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "#0d1321" }}>
+              Meet Our <span className="gradient-text">Team</span>
             </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">Passionate professionals dedicated to excellence and community impact.</p>
+            <p className="max-w-lg mx-auto" style={{ color: "#4a5568" }}>Passionate professionals dedicated to excellence and community impact.</p>
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, i) => (
               <AnimatedSection key={member.name} delay={i * 0.1}>
-                <div className="p-6 rounded-2xl text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="glass-card p-6 rounded-2xl text-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={member.avatar} alt={member.name} className="w-20 h-20 rounded-2xl mx-auto mb-4 object-cover" style={{ border: "2px solid rgba(99, 102, 241, 0.3)" }} />
-                  <h3 className="text-white font-semibold text-lg">{member.name}</h3>
-                  <p className="text-indigo-400 text-sm mb-3">{member.role}</p>
-                  <p className="text-gray-400 text-xs leading-relaxed mb-4">{member.bio}</p>
+                  <img src={member.avatar} alt={member.name} className="w-20 h-20 rounded-2xl mx-auto mb-4 object-cover" style={{ border: "2px solid #e4e8f0" }} />
+                  <h3 className="font-semibold text-lg" style={{ color: "#0d1321" }}>{member.name}</h3>
+                  <p className="text-sm mb-3" style={{ color: "#3b5bdb" }}>{member.role}</p>
+                  <p className="text-xs leading-relaxed mb-4" style={{ color: "#4a5568" }}>{member.bio}</p>
                   <div className="flex flex-wrap gap-1.5 justify-center">
                     {member.skills.map((skill) => (
-                      <span key={skill} className="px-2 py-0.5 rounded-md text-xs text-gray-300" style={{ background: "rgba(99, 102, 241, 0.15)" }}>
+                      <span key={skill} className="px-2 py-0.5 rounded-md text-xs" style={{ background: "#eef1fd", color: "#3b5bdb" }}>
                         {skill}
                       </span>
                     ))}
@@ -214,55 +202,50 @@ export default function AboutPage() {
         <div className="container-max">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-6" style={{ background: "rgba(99, 102, 241, 0.15)", border: "1px solid rgba(99, 102, 241, 0.3)", color: "#a5b4fc" }}>
-                <Award className="w-3 h-3" /> Why Choose Us
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-6" style={{ background: "#eef1fd", border: "1px solid #c5cee0", color: "#3b5bdb" }}>
+                <EmojiEvents sx={{ fontSize: 14 }} /> Why Choose Us
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                We Don&apos;t Just Build —{" "}
-                <span style={{ background: "linear-gradient(135deg, #6366f1, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  We Partner
-                </span>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ color: "#0d1321" }}>
+                We Don&apos;t Just Build — <span className="gradient-text">We Partner</span>
               </h2>
-              <p className="text-gray-400 mb-8 leading-relaxed">
-                Choosing MMIS Technologies means choosing a team that genuinely cares about your success — and the success of the communities around us. We bring technical excellence and human empathy to every engagement.
+              <p className="mb-8 leading-relaxed" style={{ color: "#4a5568" }}>
+                Choosing MMIS Technologies means choosing a team that genuinely cares about your success — and the success of the communities around us.
               </p>
               <ul className="space-y-4">
                 {whyUs.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-indigo-400 flex-shrink-0" />
+                  <li key={item} className="flex items-center gap-3" style={{ color: "#374151" }}>
+                    <CheckCircle sx={{ fontSize: 20, color: "#4f46e5" }} />
                     {item}
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
                 <Link href="/contact" className="btn-primary">
-                  Work With Us <ArrowRight className="w-4 h-4" />
+                  Work With Us <ArrowForward sx={{ fontSize: 16 }} />
                 </Link>
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
-              <div className="relative">
-                <div className="p-8 rounded-3xl" style={{ background: "linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15))", border: "1px solid rgba(99, 102, 241, 0.2)" }}>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { icon: Globe, label: "Global Standards", color: "from-blue-500 to-cyan-500" },
-                      { icon: Zap, label: "Fast Delivery", color: "from-indigo-500 to-purple-500" },
-                      { icon: Heart, label: "Social Impact", color: "from-pink-500 to-rose-500" },
-                      { icon: Award, label: "Quality Assured", color: "from-amber-500 to-orange-500" },
-                    ].map((item) => (
-                      <div key={item.label} className="p-4 rounded-xl text-center" style={{ background: "rgba(255,255,255,0.05)" }}>
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2 bg-gradient-to-br ${item.color}`}>
-                          <item.icon className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="text-gray-300 text-xs font-medium">{item.label}</span>
+              <div className="p-8 rounded-3xl" style={{ background: "linear-gradient(135deg, #eef1fd, #f3f0ff)", border: "1px solid #c5cee0" }}>
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { icon: Language, label: "Global Standards", color: "from-blue-500 to-cyan-500" },
+                    { icon: FlashOn, label: "Fast Delivery", color: "from-indigo-500 to-purple-500" },
+                    { icon: Favorite, label: "Social Impact", color: "from-pink-500 to-rose-500" },
+                    { icon: EmojiEvents, label: "Quality Assured", color: "from-amber-500 to-orange-500" },
+                  ].map((item) => (
+                    <div key={item.label} className="p-4 rounded-xl text-center bg-white" style={{ border: "1px solid #e4e8f0" }}>
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2 bg-gradient-to-br ${item.color}`}>
+                        <item.icon sx={{ fontSize: 20, color: "white" }} />
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 p-4 rounded-xl text-center" style={{ background: "rgba(99, 102, 241, 0.15)", border: "1px solid rgba(99, 102, 241, 0.2)" }}>
-                    <div className="text-4xl font-bold text-white mb-1" style={{ background: "linear-gradient(135deg, #6366f1, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>98%</div>
-                    <div className="text-gray-400 text-sm">Client Satisfaction Rate</div>
-                  </div>
+                      <span className="text-xs font-medium" style={{ color: "#374151" }}>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 p-4 rounded-xl text-center" style={{ background: "#eef1fd", border: "1px solid #c5cee0" }}>
+                  <div className="text-4xl font-bold mb-1 gradient-text">98%</div>
+                  <div className="text-sm" style={{ color: "#4a5568" }}>Client Satisfaction Rate</div>
                 </div>
               </div>
             </AnimatedSection>

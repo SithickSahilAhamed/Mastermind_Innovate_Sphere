@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, MessageCircle } from "lucide-react";
+import Close from "@mui/icons-material/Close";
+import Chat from "@mui/icons-material/Chat";
 import { siteConfig } from "@/data/site";
 
 export default function WhatsAppButton() {
@@ -32,7 +33,7 @@ export default function WhatsAppButton() {
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center bg-white/20">
-                  <MessageCircle className="w-5 h-5 text-white" />
+                  <Chat sx={{ fontSize: 20, color: "white" }} />
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">MMIS Support</p>
@@ -47,7 +48,7 @@ export default function WhatsAppButton() {
                 className="text-white/70 hover:text-white transition-colors"
                 aria-label="Close"
               >
-                <X className="w-4 h-4" />
+                <Close sx={{ fontSize: 16 }} />
               </button>
             </div>
 
@@ -70,7 +71,7 @@ export default function WhatsAppButton() {
               className="flex items-center justify-center gap-2 py-3 text-white font-semibold text-sm transition-all"
               style={{ background: "linear-gradient(135deg, #25d366, #128c7e)" }}
             >
-              <MessageCircle className="w-4 h-4" />
+              <Chat sx={{ fontSize: 16 }} />
               Start Chat on WhatsApp
             </a>
           </motion.div>
