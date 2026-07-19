@@ -48,9 +48,9 @@ const process = [
 ];
 
 const impactStats = [
-  { value: "200+", label: "Students Supported", icon: Group },
-  { value: "15+", label: "Schools Reached", icon: School },
-  { value: "4+", label: "Years of Impact", icon: Star },
+  { value: "3+", label: "Students Supported", icon: Group },
+  { value: "2+", label: "Schools Reached", icon: School },
+  { value: "1+", label: "Years of Impact", icon: Star },
   { value: "100%", label: "Self-Funded Initiative", icon: Favorite },
 ];
 

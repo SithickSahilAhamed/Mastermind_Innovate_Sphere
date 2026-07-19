@@ -261,32 +261,25 @@ export const testimonials = [
 
 export const teamMembers = [
   {
-    name: "Vikram Nair",
+    name: "Sithick Sahil Ahamed",
     role: "Founder & CEO",
     bio: "Full-stack developer with 5+ years of experience building scalable SaaS products and digital solutions.",
-    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+    avatar: "/team/sithick-sahil-ahamed.jpg",
     skills: ["Leadership", "Architecture", "Strategy"],
   },
   {
-    name: "Meera Pillai",
-    role: "Head of Design",
+    name: "Parthiban",
+    role: "Design Lead",
     bio: "UI/UX designer passionate about creating human-centered digital experiences that convert.",
-    avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+    avatar: "/team/parthiban.png",
     skills: ["UI/UX", "Branding", "Figma"],
   },
   {
-    name: "Suresh Babu",
-    role: "Lead Developer",
+    name: "Prasanna",
+    role: "CTO",
     bio: "React and Next.js specialist with a track record of building high-performance web applications.",
-    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+    avatar: "/team/prasanna.jpg",
     skills: ["React", "Next.js", "Tailwind"],
-  },
-  {
-    name: "Ananya Krishnan",
-    role: "Student Success Lead",
-    bio: "Dedicated to bridging the gap between students and industry through mentorship and guidance.",
-    avatar: "https://randomuser.me/api/portraits/women/4.jpg",
-    skills: ["Mentorship", "Career Guidance", "Education"],
   },
 ];
 

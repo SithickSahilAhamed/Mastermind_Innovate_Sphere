@@ -174,7 +174,7 @@ export default function AboutPage() {
             </h2>
             <p className="max-w-lg mx-auto" style={{ color: "#4a5568" }}>Passionate professionals dedicated to excellence and community impact.</p>
           </AnimatedSection>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member, i) => (
               <AnimatedSection key={member.name} delay={i * 0.1}>
                 <div className="glass-card p-6 rounded-2xl text-center">
