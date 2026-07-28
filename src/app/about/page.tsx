@@ -13,7 +13,7 @@ import EmojiEvents from "@mui/icons-material/EmojiEvents";
 import Language from "@mui/icons-material/Language";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import FlashOn from "@mui/icons-material/FlashOn";
-import { stats, teamMembers } from "@/data/site";
+import { stats } from "@/data/site";
 
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -158,38 +158,6 @@ export default function AboutPage() {
                   <span className="text-sm font-medium" style={{ color: "#3b5bdb" }}>{item.year}</span>
                   <h3 className="font-semibold text-lg mt-1" style={{ color: "#0d1321" }}>{item.title}</h3>
                   <p className="text-sm mt-1" style={{ color: "#4a5568" }}>{item.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="section-padding bg-section">
-        <div className="container-max">
-          <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "#0d1321" }}>
-              Meet Our <span className="gradient-text">Team</span>
-            </h2>
-            <p className="max-w-lg mx-auto" style={{ color: "#4a5568" }}>Passionate professionals dedicated to excellence and community impact.</p>
-          </AnimatedSection>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {teamMembers.map((member, i) => (
-              <AnimatedSection key={member.name} delay={i * 0.1}>
-                <div className="glass-card p-6 rounded-2xl text-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={member.avatar} alt={member.name} className="w-20 h-20 rounded-2xl mx-auto mb-4 object-cover" style={{ border: "2px solid #e4e8f0" }} />
-                  <h3 className="font-semibold text-lg" style={{ color: "#0d1321" }}>{member.name}</h3>
-                  <p className="text-sm mb-3" style={{ color: "#3b5bdb" }}>{member.role}</p>
-                  <p className="text-xs leading-relaxed mb-4" style={{ color: "#4a5568" }}>{member.bio}</p>
-                  <div className="flex flex-wrap gap-1.5 justify-center">
-                    {member.skills.map((skill) => (
-                      <span key={skill} className="px-2 py-0.5 rounded-md text-xs" style={{ background: "#eef1fd", color: "#3b5bdb" }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </AnimatedSection>
             ))}
