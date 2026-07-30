@@ -15,6 +15,7 @@ import Warning from "@mui/icons-material/Warning";
 import Phone from "@mui/icons-material/Phone";
 import Email from "@mui/icons-material/Email";
 import AccessTime from "@mui/icons-material/AccessTime";
+import { siteConfig } from "@/data/site";
 
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -129,8 +130,8 @@ export default function ConsultationPage() {
         <div className="container-max px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             {[
-              { icon: Phone, label: "Call Us", value: "+91 98765 43210" },
-              { icon: Email, label: "Email Us", value: "info@mmistechnologies.com" },
+              { icon: Phone, label: "Call Us", value: siteConfig.phone },
+              { icon: Email, label: "Email Us", value: siteConfig.email },
               { icon: AccessTime, label: "Support Hours", value: "Mon–Sat, 9 AM – 6 PM" },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-3">
