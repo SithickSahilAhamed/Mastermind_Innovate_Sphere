@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
 import Close from "@mui/icons-material/Close";
-import FlashOn from "@mui/icons-material/FlashOn";
 import { navLinks } from "@/data/site";
 
 export default function Navbar() {
@@ -39,12 +38,13 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "#3b5bdb", boxShadow: "0 2px 8px rgba(59,91,219,0.3)" }}
-            >
-              <FlashOn sx={{ fontSize: 16, color: "white" }} />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Mastermind InnovateSphere logo"
+              className="w-9 h-9 rounded-lg object-cover"
+              style={{ boxShadow: "0 2px 8px rgba(59,91,219,0.3)" }}
+            />
             <div>
               <span className="font-bold text-sm block leading-tight" style={{ color: "#0d1321", letterSpacing: "-0.02em" }}>
                 Mastermind

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import FlashOn from "@mui/icons-material/FlashOn";
 import Email from "@mui/icons-material/Email";
 import Phone from "@mui/icons-material/Phone";
 import LocationOn from "@mui/icons-material/LocationOn";
@@ -21,9 +20,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "#3b5bdb", boxShadow: "0 2px 10px rgba(59,91,219,0.4)" }}>
-                <FlashOn sx={{ fontSize: 20, color: "white" }} />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="Mastermind InnovateSphere logo"
+                className="w-10 h-10 rounded-xl object-cover"
+                style={{ boxShadow: "0 2px 10px rgba(59,91,219,0.4)" }}
+              />
               <div>
                 <span className="font-bold text-base block leading-tight text-white" style={{ letterSpacing: "-0.02em" }}>Mastermind</span>
                 <span className="font-bold text-xs block leading-tight" style={{ background: "linear-gradient(135deg, #6b8eff, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.01em" }}>
