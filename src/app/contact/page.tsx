@@ -92,7 +92,7 @@ export default function ContactPage() {
       `*Subject:* ${encodeURIComponent(formData.subject)}%0A%0A` +
       `*Message:*%0A${encodeURIComponent(formData.message)}`;
 
-    window.open(`https://wa.me/916382256881?text=${text}`, "_blank");
+    window.open(`https://wa.me/917904019458?text=${text}`, "_blank");
 
     setStatus("success");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });

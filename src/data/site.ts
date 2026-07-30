@@ -5,8 +5,8 @@ export const siteConfig = {
   description:
     "We create scalable websites, software platforms, and impactful digital experiences while supporting students through educational initiatives.",
   email: "mastermindinnovatesphere@gmail.com",
-  phone: "+91 6382256881",
-  whatsapp: "916382256881",
+  phone: "+91 7904019458",
+  whatsapp: "917904019458",
   whatsappMessage: "Hello, I would like to know more about your services.",
   address: "Tamil Nadu, India",
   founded: "2021",
@@ -28,6 +28,7 @@ export const navLinks = [
   { label: "Projects", href: "/projects" },
   { label: "Scholarship", href: "/scholarship" },
   { label: "Placement", href: "/placement" },
+  { label: "Career", href: "/career" },
   { label: "Consultation", href: "/consultation" },
   { label: "Contact", href: "/contact" },
 ];
@@ -283,6 +284,46 @@ export const teamMembers = [
   },
 ];
 
+export const careers = [
+  {
+    id: "frontend-dev-intern",
+    title: "Frontend Development Intern",
+    type: "Internship",
+    location: "Remote",
+    duration: "3 Months",
+    description:
+      "Build real client-facing interfaces using React, Next.js, and Tailwind CSS alongside our development team.",
+    requirements: ["HTML, CSS & JavaScript fundamentals", "Familiarity with React", "Eagerness to learn and ship"],
+  },
+  {
+    id: "backend-dev-intern",
+    title: "Backend Development Intern",
+    type: "Internship",
+    location: "Remote",
+    duration: "3 Months",
+    description: "Work on APIs, databases, and server-side logic that power our client platforms.",
+    requirements: ["Basic Node.js or similar backend experience", "Understanding of REST APIs", "Problem-solving mindset"],
+  },
+  {
+    id: "uiux-design-intern",
+    title: "UI/UX Design Intern",
+    type: "Internship",
+    location: "Remote",
+    duration: "2–3 Months",
+    description: "Design wireframes, prototypes, and polished interfaces for real client projects.",
+    requirements: ["Familiarity with Figma", "Eye for clean, modern design", "Sample work or portfolio (student projects welcome)"],
+  },
+  {
+    id: "digital-marketing-intern",
+    title: "Digital Marketing Intern",
+    type: "Internship",
+    location: "Remote",
+    duration: "2 Months",
+    description: "Support content, social media, and outreach efforts that grow our client and community reach.",
+    requirements: ["Interest in digital marketing", "Good communication skills", "Basic content creation experience"],
+  },
+];
+
 export const faqItems = [
   {
     question: "How long does a typical website project take?",
@@ -312,6 +353,6 @@ export const faqItems = [
   {
     question: "How can I contact you for a project?",
     answer:
-      "You can reach us via email at mastermindinnovatesphere@gmail.com, call us at +91 6382256881, or message us on WhatsApp for a quick response.",
+      "You can reach us via email at mastermindinnovatesphere@gmail.com, call us at +91 7904019458, or message us on WhatsApp for a quick response.",
   },
 ];
