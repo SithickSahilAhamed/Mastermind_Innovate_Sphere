@@ -239,7 +239,7 @@ export const testimonials = [
     role: "Auditing & Financial Consulting Firm",
     content:
       "Mastermind InnovateSphere built us a professional website that truly represents our brand. The design is clean, modern, and our clients love it.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+    avatar: "/clients/jafi-associates.jpg",
     rating: 5,
   },
   {
@@ -247,7 +247,7 @@ export const testimonials = [
     role: "Educational Institution",
     content:
       "Our new website has transformed how students and parents find information about our institution. Excellent work and very professional team.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
+    avatar: "/clients/bubblee-institution.png",
     rating: 5,
   },
   {
@@ -255,7 +255,7 @@ export const testimonials = [
     role: "Construction & Real Estate",
     content:
       "The website they delivered for our construction business is outstanding. It showcases our projects beautifully and has already brought in new clients.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+    avatar: "/clients/castlekey-construction.png",
     rating: 5,
   },
 ];
