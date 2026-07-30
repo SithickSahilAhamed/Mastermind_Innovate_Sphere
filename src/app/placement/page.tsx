@@ -41,10 +41,9 @@ const offerings = [
 ];
 
 const mentors = [
-  { name: "Arjun Sharma", role: "Senior Engineer, Google", exp: "8 Years", speciality: "Full-Stack Development", avatar: "https://randomuser.me/api/portraits/men/11.jpg", rating: 4.9 },
-  { name: "Divya Menon", role: "Product Manager, Microsoft", exp: "7 Years", speciality: "Product & Strategy", avatar: "https://randomuser.me/api/portraits/women/12.jpg", rating: 4.8 },
-  { name: "Karthik Rajan", role: "DevOps Lead, Amazon", exp: "9 Years", speciality: "Cloud & DevOps", avatar: "https://randomuser.me/api/portraits/men/13.jpg", rating: 4.9 },
-  { name: "Nisha Patel", role: "Data Scientist, Meta", exp: "6 Years", speciality: "AI & Data Science", avatar: "https://randomuser.me/api/portraits/women/14.jpg", rating: 4.7 },
+  { name: "Harikrishnan Ravi", role: "Senior Software Engineer, SGS & Co", exp: "7+ Years", speciality: ".NET & Full-Stack Development", avatar: "/mentors/harikrishnan-ravi.jpg" },
+  { name: "Sabeer Mohamed", role: "Application Developer, UPS", exp: "7+ Years", speciality: ".NET Full-Stack Development", avatar: "/mentors/sabeer-mohamed.jpg" },
+  { name: "Abhishek A", role: "Software Engineer, HTC Global Services", exp: "7+ Years", speciality: "Backend & Microservices", avatar: "/mentors/abhishek-a.jpg" },
 ];
 
 const roadmaps = [
@@ -161,7 +160,7 @@ export default function PlacementPage() {
             <p className="max-w-lg mx-auto" style={{ color: "#4a5568" }}>Industry professionals from top tech companies ready to guide your career journey.</p>
           </AnimatedSection>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {mentors.map((mentor, i) => (
               <AnimatedSection key={mentor.name} delay={i * 0.1}>
                 <motion.div
@@ -170,10 +169,6 @@ export default function PlacementPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={mentor.avatar} alt={mentor.name} className="w-20 h-20 rounded-2xl mx-auto mb-4 object-cover" style={{ border: "2px solid #e4e8f0" }} />
-                  <div className="flex items-center justify-center gap-1 mb-2">
-                    <Star sx={{ fontSize: 16, color: "#eab308" }} />
-                    <span className="text-sm font-medium" style={{ color: "#92400e" }}>{mentor.rating}</span>
-                  </div>
                   <h3 className="font-semibold text-lg mb-1" style={{ color: "#0d1321" }}>{mentor.name}</h3>
                   <p className="text-sm mb-1" style={{ color: "#059669" }}>{mentor.role}</p>
                   <p className="text-xs mb-3" style={{ color: "#4a5568" }}>{mentor.exp} Experience</p>
